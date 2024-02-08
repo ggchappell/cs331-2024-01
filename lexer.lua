@@ -217,7 +217,7 @@ function lexer.lex(program)
     -- Called each time through the for-in loop.
     -- Returns a pair: lexeme-string (string) and category (int), or
     -- nil, nil if no more lexemes.
-    local function getLexeme(dummy1, dummy2)
+    local function getLexeme()
         if pos > program:len() then
             return nil, nil
         end
@@ -237,7 +237,7 @@ function lexer.lex(program)
     -- Initialize & return the iterator function
     pos = 1
     skipToNextLexeme()
-    return getLexeme, nil, nil
+    return getLexeme
 end
 
 
