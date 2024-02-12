@@ -126,9 +126,7 @@ local parse_item
 
 -- parse
 -- Given program, initialize parser and call parsing function for start
--- symbol. Returns pair of booleans. First indicates successful parse or
--- not. Second indicates whether the parser reached the end of the
--- input or not.
+-- symbol. Returns a boolean, indicating successful parse or not.
 function rdparser1.parse(prog)
     -- Initialization
     init(prog)
