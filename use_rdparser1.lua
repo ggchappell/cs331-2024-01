@@ -9,10 +9,10 @@
 -- Simple Main Program for rdparser1 Module
 -- Requires rdparser1.lua
 
--- History: 
--- - v1: 
+-- History:
+-- - v1:
 --   - Written for parser with single boolean return value.
--- - v2: 
+-- - v2:
 --   - Revised for parser with 2 boolean return values.
 
 
