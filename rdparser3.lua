@@ -1,6 +1,7 @@
--- rdparser3.lua  UNFINISHED
+-- rdparser3.lua
 -- Glenn G. Chappell
--- 2024-02-15
+-- Started: 2024-02-15
+-- Updated: 2024-02-16
 --
 -- For CS 331 Spring 2024
 -- Recursive-Descent Parser #3: Expressions
@@ -58,6 +59,9 @@ local lexstr = ""   -- String form of current lexeme
 local lexcat = 0    -- Category of current lexeme:
                     --  one of categories below, or 0 for past the end
 
+-- For last matched lexeme
+local matched = ""  -- String form of last matched lexeme
+
 
 -- *********************************************************************
 -- Symbolic Constants for AST
@@ -109,11 +113,12 @@ end
 
 -- matchString
 -- Given string, see if current lexeme string form is equal to it. If
--- so, then advance to next lexeme & return true. If not, then do not
--- advance, return false.
+-- so, then set "matched" to the matched string, advance to next lexeme
+-- & return true. If not, then do not advance, return false.
 -- Function init must be called before this function is called.
 local function matchString(s)
     if lexstr == s then
+        matched = lexstr
         advance()
         return true
     else
@@ -124,11 +129,13 @@ end
 
 -- matchCat
 -- Given lexeme category (integer), see if current lexeme category is
--- equal to it. If so, then advance to next lexeme & return true. If
--- not, then do not advance, return false.
+-- equal to it. If so, then set "matched" to the string form of the
+-- matched lexeme, advance to next lexeme & return true. If not, then do
+-- not advance, return false.
 -- Function init must be called before this function is called.
 local function matchCat(c)
     if lexcat == c then
+        matched = lexstr
         advance()
         return true
     else
@@ -193,8 +200,26 @@ end
 -- Parsing function for nonterminal "expr".
 -- Function init must be called before this function is called.
 function parse_expr()
-    -- TODO: WRITE THIS!!!
-    return false, nil  -- DUMMY
+    local good, ast, saveop, newast
+
+    good, ast = parse_term()
+    if not good then
+        return false, nil
+    end
+
+    while matchString("+") or matchString("-") do
+        -- Invariant: ast is the AST for what has been parsed so far.
+        saveop = matched
+
+        good, newast = parse_term()
+        if not good then
+            return false, nil
+        end
+
+        ast = { { BIN_OP, saveop }, ast, newast }
+    end
+
+    return true, ast
 end
 
 
@@ -202,8 +227,26 @@ end
 -- Parsing function for nonterminal "term".
 -- Function init must be called before this function is called.
 function parse_term()
-    -- TODO: WRITE THIS!!!
-    return false, nil  -- DUMMY
+    local good, ast, saveop, newast
+
+    good, ast = parse_factor()
+    if not good then
+        return false, nil
+    end
+
+    while matchString("*") or matchString("/") do
+        -- Invariant: ast is the AST for what has been parsed so far.
+        saveop = matched
+
+        good, newast = parse_factor()
+        if not good then
+            return false, nil
+        end
+
+        ast = { { BIN_OP, saveop }, ast, newast }
+    end
+
+    return true, ast
 end
 
 
@@ -211,8 +254,26 @@ end
 -- Parsing function for nonterminal "factor".
 -- Function init must be called before this function is called.
 function parse_factor()
-    -- TODO: WRITE THIS!!!
-    return false, nil  -- DUMMY
+    local good, ast
+
+    if matchCat(lexer.ID) then
+        return true, { SIMPLE_VAR, matched }
+    elseif matchCat(lexer.NUMLIT) then
+        return true, { NUMLIT_VAL, matched }
+    elseif matchString("(") then
+        good, ast = parse_expr()
+        if not good then
+            return false, nil
+        end
+
+        if not matchString(")") then
+            return false, nil
+        end
+
+        return true, ast
+    else
+        return false, nil
+    end
 end
 
 
