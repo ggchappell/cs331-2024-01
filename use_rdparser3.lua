@@ -58,12 +58,14 @@ function writeAST_rdparser3(x)
 end
 
 
+-- Separator string
+dashes = ("-"):rep(72)  -- Lots of dashes
+
+
 -- check
 -- Given a "program", check its syntactic correctness using rdparser3.
 -- Print results.
 function check(program)
-    dashstr = "-"
-    io.write(dashstr:rep(72).."\n")
     io.write("Program: "..program.."\n")
 
     local good, done, ast = rdparser3.parse(program)
@@ -84,12 +86,16 @@ function check(program)
     else  -- not good and not done
         io.write("BAD - syntax error\n")
     end
+
+    io.write(dashes.."\n")
 end
 
 
 -- Main program
 -- Check several "programs".
 io.write("Recursive-Descent Parser: Expressions\n")
+io.write(dashes.."\n")
+
 check("")
 check("xyz")
 check("123")
