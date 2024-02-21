@@ -1,5 +1,5 @@
 #!/usr/bin/env lua
--- userdparser2.lua
+-- use_rdparser2.lua
 -- Glenn G. Chappell
 -- 2024-02-13
 --
