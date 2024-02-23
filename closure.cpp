@@ -17,7 +17,7 @@ using std::function;
 // Return a function object (a closure) that multiplies by the given k.
 function<int(int)> make_multiplier(int k)
 {
-    auto mult = [=](int x)
+    auto doit = [=](int x)
     {
         return k * x;
     };
@@ -31,7 +31,7 @@ function<int(int)> make_multiplier(int k)
     // -- a very bad idea in this particular case, as k is a local
     // variable of function make_multiplier.
 
-    return mult;
+    return doit;
 }
 
 
