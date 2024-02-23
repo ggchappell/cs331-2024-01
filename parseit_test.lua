@@ -1923,9 +1923,9 @@ function test_prog(t)
       [[#!
       # fibo.ngai
       # Glenn G. Chappell
-      # 2023-02-14
+      # 2024-02-14
       #
-      # For CS 331 Spring 2023-02-14
+      # For CS 331 Spring 2024
       # Compute Fibonacci Numbers
 
 
