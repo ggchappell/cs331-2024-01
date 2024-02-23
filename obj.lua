@@ -206,11 +206,11 @@ io.write("\n*** Closures:\n")
 -- make_multiplier
 -- Return a function (a closure) that multiplies by the given k.
 function make_multiplier(k)
-    function mult(x)
+    function doit(x)
         return k*x
     end
 
-    return mult
+    return doit
 end
 
 -- Now use the closure turned above.
