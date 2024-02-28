@@ -3,7 +3,7 @@
 -- 2024-02-26
 --
 -- For CS 331 Spring 2024
--- Code from 2/26 - Haskell: Lists
+-- Code from Feb 26 - Haskell: Lists
 
 module Main where
 
