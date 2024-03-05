@@ -1,4 +1,4 @@
--- data.hs  UNFINSIHED
+-- data.hs  UNFINISHED
 -- Glenn G. Chappell
 -- 2024-03-04
 --
