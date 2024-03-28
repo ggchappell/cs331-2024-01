@@ -3,7 +3,7 @@
 \ 2024-03-20
 \
 \ For CS 331 Spring 2024
-\ Code from 3/20 - Forth: Words
+\ Code from Mar 20 - Forth: Words
 
 
 cr cr

@@ -3,7 +3,7 @@
 \ 2024-03-22
 \
 \ For CS 331 Spring 2024
-\ Code from 3/22 - Forth: Allocation & Arrays
+\ Code from Mar 22 - Forth: Allocation & Arrays
 
 
 cr cr
