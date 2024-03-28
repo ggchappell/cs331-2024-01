@@ -50,16 +50,16 @@ cr
 \   22 33 cc .
 
 \ More info tidbits:
-\ (1) 'create', ',', and 'does>' are all legal in a compiled context
-\     (inside a ': ... ;' word definition).
+\ (1) 'create', ',', and 'does>' are all legal in a compiled context --
+\     that is, inside a ': ... ;' word definition.
 \ (2) When using both ',' and 'does>' on the same word, do ',' first.
-\ (3) When 'create' is used in a compiled context, say inside the
-\     definition of a word abc, 'create' applies to what follows abc
-\     when it is used, not what follows 'create' in the definition of
-\     the word.
-\ (4) When 'does>' is used in a compiled context, say the definition of
-\     a word abc, 'does>' ends the definition of abc and begins the
-\     definition of the word it creates.
+\ (3) When 'create' is used in a compiled context, say in the definition
+\     of a word 'abc', 'create' applies to what follows 'abc' when it is
+\     used, not what follows 'create' in the definition of 'abc'.
+\ (4) When 'does>' is used in a compiled context, say in the definition
+\     of a word 'abc', 'does>' ends the definition of 'abc' and begins
+\     the definition of the word it creates (but the ending semicolon is
+\     still needed).
 
 
 \ ***** Making Defining Words *****
