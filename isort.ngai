@@ -1,0 +1,115 @@
+#!./nilgai.lua
+# isort.ngai
+# Glenn G. Chappell
+# 2024-04-02
+#
+# For CS 331 Spring 2024
+# Nilgai Demo: Insertion Sort
+
+
+# All functions deal with array "data", whose length is given by
+# variable "datalen". We assume datalen >= 0, and items in data have
+# indices 0 .. datalen-1.
+
+
+# Function initData
+# Pushes random values into array data (described above).
+def initData()
+{
+    num_to_push = 22;
+    jj = 0;
+    while (jj < num_to_push)
+    {
+        v = rand(100);
+        data[datalen] = v;
+        datalen = datalen+1;
+        jj = jj+1;
+    }
+}
+
+
+# Function printData
+# Output items in array "data" (described above) on a single line, with
+# items separated by blanks, and the entire dataset followed by a
+# newline.
+def printData()
+{
+    jj = 0;
+    while (jj < datalen)
+    {
+        if (jj > 0)
+        {
+            output(" ");
+        }
+        output(data[jj]);
+        jj = jj + 1;
+    }
+    output(eol);
+}
+
+
+# Function insertionSort
+# Sort array data (described above), in ascending order, using
+# Insertion Sort.
+def insertionSort()
+{
+    # i is index of item to insert among earlier items
+    i = 1;
+    while (i < datalen)
+    {
+        savedata_i = data[i];  # Save item to insert
+        done = false;          # Have we found proper spot yet?
+        k = i;
+        while (k > 0 and not done)
+        {
+            if (not(savedata_i < data[k-1]))
+            {
+                done = true;   # Nilgai has no "break", so we do this
+            }
+            else
+            {
+                data[k] = data[k-1];
+                k = k-1;
+            }
+        }
+        # k is the spot where savedata_i goes; put it there
+        data[k] = savedata_i;
+
+        i = i+1;
+    }
+}
+
+
+# Main Program
+# Print unsorted data, sort it, and print result.
+
+# Print heading
+output("Nilgai - Insertion Sort Demo", eol, eol);
+
+# Make initial data
+initData();
+
+# Print initial data
+output("Initial data:", eol);
+printData();
+output(eol);
+
+# Sort
+output("Sorting", eol);
+insertionSort();
+output(eol);
+
+# Print sorted data
+output("Sorted data:", eol);
+printData();
+output(eol);
+
+# Print final message
+output("Run this program again to sort with different data.", eol);
+
+
+# Wait for user
+# (unnecessary with nilgai.lua, so commented out)
+#output(eol, "Press ENTER to quit ");
+#dummy = inputnum();
+

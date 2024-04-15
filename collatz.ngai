@@ -1,0 +1,73 @@
+#!./nilgai.lua
+# collatz.ngai
+# Glenn G. Chappell
+# 2024-04-02
+#
+# For CS 331 Spring 2024
+# Nilgai Demo: Collatz Sequences
+
+
+# Function collatz
+# Given a positive integer k, applies the Collatz function once and
+# returns the result. k is not modified.
+def collatz()
+{
+    if (k % 2 == 0)
+    {
+        return k/2;
+    }
+    else
+    {
+        return 3*k + 1;
+    }
+}
+
+
+# Function printCollatzSequence
+# Given a positive integer n, print the Collatz sequence beginning at n
+# and ending at 1, items separated by blanks and ending with a newline.
+# Modifies variable k.
+def printCollatzSequence()
+{
+    k = n;
+    while (k != 1)
+    {
+        output(k, " ");
+        k = collatz();
+    }
+    output(k, eol);
+}
+
+
+# Main Program
+# Repeatedly input a number and prints its Collatz sequence. End by
+# entering zero or a blank line.
+
+# Print header
+output("Nilgai - Collatz Sequences Demo", eol, eol);
+
+# Input & sequence printing
+done = false;
+while (not done)
+{
+    output("Type a positive integer (0 or blank line to end): ");
+    n = inputnum();
+    if (n <= 0)
+    {
+        done = true;
+    }
+    else
+    {
+        output(eol);
+        output("Collatz sequence for ", n, ":", eol);
+        printCollatzSequence();
+        output(eol);
+    }
+}
+
+
+# Wait for user
+# (unnecessary with nilgai.lua, so commented out)
+#output(eol, "Press ENTER to quit ");
+#dummy = inputnum();
+

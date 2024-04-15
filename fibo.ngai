@@ -1,0 +1,53 @@
+#!./nilgai.lua
+# fibo.ngai
+# Glenn G. Chappell
+# 2024-02-14
+#
+# For CS 331 Spring 2024
+# Compute Fibonacci Numbers
+
+
+# The Fibonacci number F(n), for n >= 0, is defined by F(0) = 0,
+# F(1) = 1, and for n >= 2, F(n) = F(n-2) + F(n-1).
+
+
+# fibo (param in variable n)
+# Return Fibonacci number F(n).
+def fibo()
+{
+    currfib = 0;
+    nextfib = 1;
+    i = 0;  # Loop counter
+    while (i < n)
+    {
+        # Advance (currfib, nextfib)
+        tmp = currfib + nextfib;
+        currfib = nextfib;
+        nextfib = tmp;
+        i = i+1;
+    }
+    return currfib;
+}
+
+
+# Main program
+# Print some Fibonacci numbers
+how_many_to_print = 20;
+
+output("Fibonacci Numbers", eol);
+
+j = 0;  # Loop counter
+while (j < how_many_to_print)
+{
+    n = j;  # Set param for fibo
+    ff = fibo();
+    output("F(", j, ") = ", ff, eol);
+    j = j+1;
+}
+output(eol);
+
+# Wait for user
+# (unnecessary with nilgai.lua, so commented out)
+#output(eol, "Press ENTER to quit ");
+#dummy = inputnum();
+

@@ -1,0 +1,69 @@
+#!./nilgai.lua
+# guess.ngai
+# Glenn G. Chappell
+# 2024-04-02
+#
+# For CS 331 Spring 2024
+# Nilgai Demo: Number Guessing Game
+
+
+# Range specification. The number to guess will be in the range
+# [rangeMin, rangeMax].
+rangeMin = 1;
+rangeMax = 1000;
+
+
+# Function gameRound
+# Play one round of the game.
+def gameRound()
+{
+    num = rand(rangeMax+1-rangeMin) + rangeMin;
+    output("I'm thinking of a number from ");
+    output(rangeMin, " to ", rangeMax, ".", eol);
+    output("Try to guess it.", eol);
+    success = false;
+    while (not success)
+    {
+        output(eol);
+        output("Your guess: ");
+        guess = inputnum();
+        if (guess == num)
+        {
+            output(guess, " is right!", eol);
+            success = true;
+        }
+        elseif (guess > num)
+        {
+            output("No, ", guess, " is too large. Guess again.", eol);
+        }
+        else
+        {
+            output("No, ", guess, " is too small. Guess again.", eol);
+        }
+    }
+}
+
+
+# Main Program
+# Do rounds of the game until the user indicates quitting.
+
+gameOver = false;
+while (not gameOver)
+{
+    gameRound();
+    output(eol);
+    output("Would you like to play again? ");
+    output("[1 to play, 0 or blank line to quit] ");
+    answer = inputnum();
+    if (answer == 0)
+    {
+        gameOver = true;
+    }
+}
+
+
+# Wait for user
+# (unnecessary with nilgai.lua, so commented out)
+#output(eol, "Press ENTER to quit ");
+#dummy = inputnum();
+

@@ -1,0 +1,17 @@
+#!./nilgai.lua
+# hello.ngai
+# Glenn G. Chappell
+# 2024-04-02
+#
+# For CS 331 Spring 2024
+# Hello-world in Nilgai
+
+
+output("Hello, world!", eol);
+
+
+# Wait for user
+# (unnecessary with nilgai.lua, so commented out)
+#output(eol, "Press ENTER to quit ");
+#dummy = inputnum();
+
