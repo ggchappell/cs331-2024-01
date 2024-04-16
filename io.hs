@@ -4,7 +4,7 @@
 -- Updated: 2024-03-04
 --
 -- For CS 331 Spring 2024
--- Code from March 1 & 4 - Haskell: I/O
+-- Code from Mar 1 & 4 - Haskell: I/O
 
 module Main where
 

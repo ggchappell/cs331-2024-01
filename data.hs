@@ -4,7 +4,7 @@
 -- Updated: 2024-03-06
 --
 -- For CS 331 Spring 2024
--- Code from March 4 & 6 - Haskell: Data
+-- Code from Mar 4 & 6 - Haskell: Data
 
 module Main where
 
