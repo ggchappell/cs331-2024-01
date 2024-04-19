@@ -1,14 +1,15 @@
 #lang scheme
-; macro.scm  UNFINISHED
+; macro.scm
 ; Glenn G. Chappell
-; 2024-04-15
+; Started: 2024-04-15
+; Updated: 2024-04-17
 ;
 ; For CS 331 Spring 2024
-; Code from Apr 15 - Scheme: Macros
+; Code from Apr 15 & 17 - Scheme: Macros
 
 
-(display "This file contains sample code from April 15, 2024,\n")
-(display "for the topic \"Scheme: Macros\".\n")
+(display "This file contains sample code from April 15 & 17,\n")
+(display "2024, for the topic \"Scheme: Macros\".\n")
 (display "It will execute, but it is not intended to do anything\n")
 (display "useful. See the source.\n")
 
@@ -41,6 +42,9 @@
   '(x y)
   )
 
+; Try:
+;   (quotetwo (+ 1 2) (+ 2 3))
+
 ; qlist
 ; Takes any number of arguments and returns a list containing them
 ; unevaluated.
@@ -60,10 +64,10 @@
 ; deftwo
 ; Define two identifiers, setting values equal to given expressions.
 (define-syntax-rule
-  (deftwo v1 e1 v2 e2)
+  (deftwo s1 e1 s2 e2)
   (begin
-    (define v1 e1)
-    (define v2 e2)
+    (define s1 e1)
+    (define s2 e2)
     )
   )
 
@@ -84,6 +88,9 @@
 ;   (toprod (+ 1 2 3 4))
 ;   (toprod (list 8 9))
 
+; for-loop1
+; For-loop. Given start, end values. Loop body is 1-parameter procedure,
+; which is called with each value from start to end, incrementing by 1.
 (define-syntax-rule (for-loop1 (start end) proc)
   (let loop (
              [loop-counter start]
@@ -101,6 +108,10 @@
 ; Try:
 ;   (for-loop1 (3 7) (lambda (i) (begin (display i) (newline))))
 
+; for-loop2
+; For-loop. Given loop-counter variable, start value, end value. Loop
+; body is sequence of expressions. These are evaluated, in order, with
+; loop-counter set to each value from start to end, incrementing by 1.
 (define-syntax-rule (for-loop2 (var start end) . body)
   (let loop (
              [loop-counter start]
@@ -119,8 +130,121 @@
 ;   (for-loop2 (i 3 (+ 2 5)) (display i) (newline))
 
 
-; TO BE CONTINUED ...
+; ***** Multiple-Pattern Macros *****
 
+
+; define-syntax-rule is a wrapper around define-syntax + syntax-rules.
+; The latter can take multiple patterns beginning with the same
+; identifier. The first pattern that matches is used.
+
+; Here is qlist, expanded version (renamed qlistx).
+
+(define-syntax qlistx
+  (syntax-rules ()
+    [(qlistx . args)
+     'args
+     ]
+    )
+  )
+
+; Try:
+;   (qlistx (+ 1 2) 7 (+ 2 3))
+
+; An example using multiple patterns.
+
+; def12
+; Define one or two identifiers.
+(define-syntax def12
+  (syntax-rules ()
+    [(def12 s1 e1)
+     (define s1 e1)
+     ]
+    [(def12 s1 e1 s2 e2)
+     (begin (define s1 e1) (define s2 e2))
+     ]
+    )
+  )
+
+; Try:
+;   (def12 x (+ 5 8))
+;   x
+
+; Try:
+;   (def12 a (+ 1 2) b (+ 2 3))
+;   a
+;   b
+
+; defbunch
+; Define an arbitrary number of identifiers.
+(define-syntax defbunch
+  (syntax-rules ()
+    [(defbunch)
+     (void)
+     ]
+    [(defbunch s1 e1 . rest)
+     (begin
+       (define s1 e1)
+       (defbunch . rest)
+       )
+     ]
+    )
+  )
+
+; Try:
+;   (defbunch a 1 b 2 c (+ 3 3))
+;   c
+
+
+; ***** Keywords in Macros *****
+
+
+; The list after syntax-rules (which is always empty above) is the list
+; of *keywords*. These are words that only match themselves in a
+; pattern. The identifier being defined is always a keyword; the list
+; allows others to be specified.
+
+; for-each1
+; For-each loop. Iterates over given list. List to iterate over is not
+; evaluated.
+; Example usage:
+;   (for-each1 n in (2 4 10) (display n) (newline))
+(define-syntax for-each1
+  (syntax-rules (in)
+    [(for-each1 var in () . body)
+     (void)
+     ]
+    [(for-each1 var in (head . tail) . body)
+     (begin
+       (let (
+             [var head]
+             )
+         (begin . body)
+         )
+       (for-each1 var in tail . body)
+       )
+     ]
+    )
+  )
+
+; Try:
+;   (for-each1 i in (2 4 10) (display i) (newline))
+
+; for-each2
+; For-each loop. Iterates over given list. List to iterate over is given
+; as an expression, which is evaluated to obtain the list.
+; Example usage:
+;   (for-each2 n in '(2 4 10) (display n) (newline))
+;   (for-each2 i in (append '(2 4) '(10)) (display i) (newline))
+(define-syntax for-each2
+  (syntax-rules (in)
+    [(for-each2 var in list-expr . body)
+     (eval (append '(for-each1 var in) (list list-expr) 'body))
+     ]
+    )
+  )
+
+; Try:
+;   (for-each2 i in (append '(2 4) '(10)) (display i) (newline))
 
 ; Raise a to the b power: (expt a b)
 
