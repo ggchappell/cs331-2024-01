@@ -235,8 +235,7 @@ squares_interact2 :-
 % ";" is OR, just as "," is AND. The precedence of ";" is lower than
 % that of ",".
 
-% To deal with precedence issues, and to restrict the effect of a cut,
-% use parentheses, as below.
+% To deal with precedence issues, we can use parentheses, as below.
 
 % Now we rewrite squares_interact2 as a single predicate.
 
