@@ -954,7 +954,7 @@ function test_program(t)
     checkLex(t, "", {}, "Empty program")
 
     -- Very short program with shebang line
-    checkLex(t, "#!./tenrec.lua\n"..
+    checkLex(t, "#!./my_interpreter\n"..
                 "output(\"Type a number: \");\n"..
                 "n = inputnum();\n"..
                 "output('You entered: ', n, eol);",
